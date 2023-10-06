@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .lotto-numbers{
+            list-style: none;
+            padding: 0;
+        }
+        .lotto-numbers li{
+            display:inline-block;
+            margin:5px;
+            background-color: yellow;
+            padding: 10px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        .randomlotto-numbers{
+            list-style: none;
+            padding: 0;
+        }
+        .randomlotto-numbers li{
+            display:inline-block;
+            margin:5px;
+            background-color: red;
+            padding: 10px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+        img{
+            height: 100px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>안녕, {{data.name}}</h1>
+    <img src="{{url_for('static', filename='coinman.png')}}" alt="">
+    <h2>로또 번호 : {{data.lotto}}</h2>
+    <h2>랜덤 로또 번호 : {{data.random_lotto}}</h2>
+    <ul class="lotto-numbers">
+        {% for element in data.lotto %}
+        <li>{{ element|e }}</li>
+        {% endfor %}
+    </ul>
+
+    <ul class="randomlotto-numbers">
+        {% for element in data.random_lotto %}
+        <li>{{ element|e }}</li>
+        {% endfor %}
+    </ul>
+
+
+    <!--당첨 갯수에 따라 메세지 표시-->
+    {% if data.common_count == 6 %}
+    <h2>{{data.common_count}}개 맞았습니다. 1등입니다!</h2>
+    {% elif data.common_count == 5 %}
+    <h2>{{data.common_count}}개 맞았습니다. 2등입니다!</h2>
+    {% elif data.common_count == 4 %}
+    <h2>{{data.common_count}}개 맞았습니다. 3등입니다!</h2>
+    {% elif data.common_count == 3 %}
+    <h2>{{data.common_count}}개 맞았습니다. 4등입니다!</h2>
+    {% else %}
+    <h2>{{data.common_count}}개 맞았습니다. 탈락입니다...</h2>
+    {% endif %}
+</body>
+
+</html>
